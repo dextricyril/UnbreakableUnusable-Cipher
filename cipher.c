@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char **argv)
 {
@@ -23,21 +24,23 @@ int main(int argc, char **argv)
     
     //key file naming
     char CB_keyFileName_FD[128];
-    char* CB_exten_FD = ".pda";
+    char CB_exten_FD[] = ".pda";
 
     if(argc == 3) // user gave output file name
     {
         CB_cipherFile_FD = fopen(argv[2],"w"); // write only output file   
-        //strncpy(CB_keyFileName, argv[2], sizeof(filename)); //TODO
+        strncpy(CB_keyFileName_FD, argv[2], sizeof(CB_keyFileName_FD)); //TODO
     }
     else
     {
-        CB_cipherFile_FD = fopen("ciphered","w"); // write only output file    
+        CB_cipherFile_FD = fopen("ciphered","w"); // write only output file
+        strncpy(CB_keyFileName_FD, argv[1], sizeof(CB_keyFileName_FD));    
     }
+    strncat(CB_keyFileName_FD, CB_exten_FD, (sizeof(CB_keyFileName_FD) - strlen(CB_keyFileName_FD)) );
 
 
 
-    CB_key_FD = fopen("key.pda","w"); // create key File
+    CB_key_FD = fopen(CB_keyFileName_FD,"w"); // create key File
 
 
 
