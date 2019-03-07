@@ -19,7 +19,7 @@ int main(int argc, char **argv)
         return 1;
     }
     char CB_keyBuff_FD, CB_cipherBuff_FD, CB_res_FD;
-    while(!feof(CB_cipheredFile_FD) || !feof(CB_keyFile_FD))
+    while(!feof(CB_cipheredFile_FD) && !feof(CB_keyFile_FD)) // stop  if one of the file reach its end
     {
         fscanf(CB_cipheredFile_FD,"%c",&CB_cipherBuff_FD); //read char from ciphered file
         fscanf(CB_keyFile_FD,"%c",&CB_keyBuff_FD); //read char from key file
